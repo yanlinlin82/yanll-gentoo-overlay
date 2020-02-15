@@ -1,0 +1,57 @@
+Description: To add SONAME to shared libraries
+Author: Linlin Yan <yanlinlin82@gmail.com>
+Last-Update: 2020-02-16
+---
+
+--- /dttools/src/Makefile.ori	2020-02-16 06:13:03.670301395 +0800
++++ /dttools/src/Makefile	2020-02-16 06:16:50.562467747 +0800
+@@ -170,7 +170,9 @@
+ endif
+ 
+ libforce_halt_enospc.so: libforce_halt_enospc.o
+-	$(CCTOOLS_CC) -shared -fPIC $^ -o $@ -ldl
++	$(CCTOOLS_CC) -shared -fPIC -Wl,-soname,$@.1 $^ -o $@.1.0 -ldl
++	ln -s $@.1.0 $@.1
++	ln -s $@.1.0 $@
+ 
+ clean:
+ 	rm -f $(OBJECTS) $(TARGETS) *.o
+--- /resource_monitor/src/Makefile.ori	2020-02-16 06:13:10.329350457 +0800
++++ /resource_monitor/src/Makefile	2020-02-16 06:17:40.297324997 +0800
+@@ -22,7 +22,9 @@
+ all: $(TARGETS) bindings
+ 
+ librmonitor_helper.$(CCTOOLS_DYNAMIC_SUFFIX): rmonitor_helper.o rmonitor_helper_comm.o
+-	$(CCTOOLS_CC) -shared -Wl,-init,rmonitor_helper_initialize -fPIC $^ -o $@ -ldl $(CCTOOLS_INTERNAL_LDFLAGS) $(LOCAL_LINKAGE) $(CCTOOLS_EXTERNAL_LINKAGE)
++	$(CCTOOLS_CC) -shared -Wl,-init,rmonitor_helper_initialize,-soname,$@.1 -fPIC $^ -o $@.1.0 -ldl $(CCTOOLS_INTERNAL_LDFLAGS) $(LOCAL_LINKAGE) $(CCTOOLS_EXTERNAL_LINKAGE)
++	ln -s $@.1.0 $@.1
++	ln -s $@.1.0 $@
+ 
+ piggybacker: piggybacker.o
+ 
+--- /parrot/src/Makefile.ori	2020-02-16 07:42:43.569286195 +0800
++++ /parrot/src/Makefile	2020-02-16 07:44:29.983361262 +0800
+@@ -28,14 +28,21 @@
+ libparrot_client.a: parrot_client.o
+ 
+ libparrot_helper.$(CCTOOLS_DYNAMIC_SUFFIX): parrot_helper.c
++	${CCTOOLS_CC} -shared -fPIC -Wl,-soname,$@.1 $< -o $@.1.0
++	ln -s $@.1.0 $@.1
++	ln -s $@.1.0 $@
+ 
+ lib64/libparrot_helper.$(CCTOOLS_DYNAMIC_SUFFIX): parrot_helper.c
+ 	mkdir -p lib64
+-	${CCTOOLS_CC} -m64 -shared -fPIC $< -o $@
++	${CCTOOLS_CC} -m64 -shared -fPIC -Wl,-soname,$(notdir $@).1 $< -o $@.1.0
++	ln -s $(notdir $@).1.0 $@.1
++	ln -s $(notdir $@).1.0 $@
+ 
+ lib/libparrot_helper.$(CCTOOLS_DYNAMIC_SUFFIX): parrot_helper.c
+ 	mkdir -p lib
+-	${CCTOOLS_CC} -m32 -shared -fPIC $< -o $@
++	${CCTOOLS_CC} -m32 -shared -fPIC -Wl,-soname,$(notdir $@).1 $< -o $@.1.0
++	ln -s $(notdir $@).1.0 $@.1
++	ln -s $(notdir $@).1.0 $@
+ 
+ tracer.table64.c: syscall_64.tbl
+ 	cat $< syscall_parrot.tbl | perl tracer.table.pl table 64 > $@
