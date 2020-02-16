@@ -10,7 +10,7 @@ S="${WORKDIR}/bedtools2"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="amd64 x86"
+KEYWORDS="amd64"
 IUSE=""
 
 DEPEND=""

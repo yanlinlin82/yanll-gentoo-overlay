@@ -9,7 +9,7 @@ SRC_URI="https://github.com/vpc-ccg/svict/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="Clear-BSD"
 SLOT="0"
-KEYWORDS="amd64 x86"
+KEYWORDS="amd64"
 IUSE=""
 
 DEPEND=""

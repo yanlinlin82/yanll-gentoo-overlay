@@ -28,3 +28,11 @@
     ```sh
     emerge -av cctools::yanll
     ```
+
+## Useful commands
+
+* Update all Manifest files:
+
+    ```sh
+    rm -fv */*/Manifest; for f in */*/*.ebuild; do (cd $(dirname $f); ebuild $(basename $f) manifest); done
+    ```
