@@ -17,13 +17,10 @@ RDEPEND="${DEPEND}"
 BDEPEND=""
 
 src_install() {
-
 	emake install prefix="${D}"/usr
-
 	dodir $(get_libdir) \
 		&& mv "${D}"/usr/lib/*.so* "${D}"/$(get_libdir)
-
 	if ! use static-libs; then
-		rm "${D}"/usr/lib/libhts.a
+		rm "${D}"/usr/lib/lib*.a
 	fi
 }
