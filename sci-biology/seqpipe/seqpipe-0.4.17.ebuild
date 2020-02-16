@@ -5,7 +5,7 @@ EAPI=7
 
 DESCRIPTION="a SEQuencing data analysis PIPEline framework"
 HOMEPAGE="https://github.com/yanlinlin82/seqpipe"
-SRC_URI="https://github.com/yanlinlin82/seqpipe/archive/${PV}.tar.gz"
+SRC_URI="https://github.com/yanlinlin82/seqpipe/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"

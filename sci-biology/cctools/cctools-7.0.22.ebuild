@@ -3,8 +3,7 @@
 
 EAPI=7
 
-DESCRIPTION="cctools enable large scale distributed computations to harness
-hundreds to thousands of machines from clusters, clouds, and grids."
+DESCRIPTION="large scale distributed computations on clusters"
 HOMEPAGE="http://ccl.cse.nd.edu/"
 SRC_URI="https://github.com/cooperative-computing-lab/${PN}/archive/release/${PV}.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}/${PN}-release-${PV}"
