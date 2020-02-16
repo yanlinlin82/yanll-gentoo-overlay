@@ -3,55 +3,144 @@ Author: Linlin Yan <yanlinlin82@gmail.com>
 Last-Update: 2020-02-16
 ---
 
---- /dttools/src/Makefile.ori	2020-02-16 06:13:03.670301395 +0800
-+++ /dttools/src/Makefile	2020-02-16 06:16:50.562467747 +0800
-@@ -170,7 +170,9 @@
+--- cctools-release-7.0.22.ori/dttools/src/Makefile	2020-01-30 00:08:12.000000000 +0800
++++ cctools-release-7.0.22/dttools/src/Makefile	2020-02-16 17:38:14.903513240 +0800
+@@ -170,18 +170,20 @@
  endif
  
  libforce_halt_enospc.so: libforce_halt_enospc.o
 -	$(CCTOOLS_CC) -shared -fPIC $^ -o $@ -ldl
 +	$(CCTOOLS_CC) -shared -fPIC -Wl,-soname,$@.1 $^ -o $@.1.0 -ldl
-+	ln -s $@.1.0 $@.1
-+	ln -s $@.1.0 $@
++	ln -sf $@.1.0 $@.1
++	ln -sf $@.1.0 $@
  
  clean:
  	rm -f $(OBJECTS) $(TARGETS) *.o
---- /resource_monitor/src/Makefile.ori	2020-02-16 06:13:10.329350457 +0800
-+++ /resource_monitor/src/Makefile	2020-02-16 06:17:40.297324997 +0800
+ 
+ install: all
+ 	mkdir -p $(CCTOOLS_INSTALL_DIR)/bin
+-	cp $(SCRIPTS) $(PROGRAMS) $(CCTOOLS_INSTALL_DIR)/bin/
++	cp -a $(SCRIPTS) $(PROGRAMS) $(CCTOOLS_INSTALL_DIR)/bin/
+ 	mkdir -p $(CCTOOLS_INSTALL_DIR)/lib
+-	cp $(LIBRARIES) $(PRELOAD_LIBRARIES) $(CCTOOLS_INSTALL_DIR)/lib/
++	cp -a $(LIBRARIES) $(PRELOAD_LIBRARIES:%=%*) $(CCTOOLS_INSTALL_DIR)/lib/
+ 	mkdir -p $(CCTOOLS_INSTALL_DIR)/include/cctools
+-	cp $(HEADERS_PUBLIC) $(CCTOOLS_INSTALL_DIR)/include/cctools/
++	cp -a $(HEADERS_PUBLIC) $(CCTOOLS_INSTALL_DIR)/include/cctools/
+ 
+ test: all
+ 
+--- cctools-release-7.0.22.ori/resource_monitor/src/Makefile	2020-01-30 00:08:12.000000000 +0800
++++ cctools-release-7.0.22/resource_monitor/src/Makefile	2020-02-16 17:42:40.600183233 +0800
 @@ -22,7 +22,9 @@
  all: $(TARGETS) bindings
  
  librmonitor_helper.$(CCTOOLS_DYNAMIC_SUFFIX): rmonitor_helper.o rmonitor_helper_comm.o
 -	$(CCTOOLS_CC) -shared -Wl,-init,rmonitor_helper_initialize -fPIC $^ -o $@ -ldl $(CCTOOLS_INTERNAL_LDFLAGS) $(LOCAL_LINKAGE) $(CCTOOLS_EXTERNAL_LINKAGE)
 +	$(CCTOOLS_CC) -shared -Wl,-init,rmonitor_helper_initialize,-soname,$@.1 -fPIC $^ -o $@.1.0 -ldl $(CCTOOLS_INTERNAL_LDFLAGS) $(LOCAL_LINKAGE) $(CCTOOLS_EXTERNAL_LINKAGE)
-+	ln -s $@.1.0 $@.1
-+	ln -s $@.1.0 $@
++	ln -sf $@.1.0 $@.1
++	ln -sf $@.1.0 $@
  
  piggybacker: piggybacker.o
  
---- /parrot/src/Makefile.ori	2020-02-16 07:42:43.569286195 +0800
-+++ /parrot/src/Makefile	2020-02-16 07:44:29.983361262 +0800
+@@ -64,9 +66,9 @@
+ 
+ install: all install-bindings
+ 	mkdir -p $(CCTOOLS_INSTALL_DIR)/bin
+-	cp $(PROGRAMS) $(CCTOOLS_INSTALL_DIR)/bin/
++	cp -a $(PROGRAMS) $(CCTOOLS_INSTALL_DIR)/bin/
+ 	mkdir -p $(CCTOOLS_INSTALL_DIR)/lib
+-	cp $(LIBRARIES) $(CCTOOLS_INSTALL_DIR)/lib/
++	cp -a $(LIBRARIES)* $(CCTOOLS_INSTALL_DIR)/lib/
+ 
+ test: all
+ 
+--- cctools-release-7.0.22.ori/parrot/src/Makefile	2020-01-30 00:08:12.000000000 +0800
++++ cctools-release-7.0.22/parrot/src/Makefile	2020-02-16 17:45:20.644800890 +0800
 @@ -28,14 +28,21 @@
  libparrot_client.a: parrot_client.o
  
  libparrot_helper.$(CCTOOLS_DYNAMIC_SUFFIX): parrot_helper.c
 +	${CCTOOLS_CC} -shared -fPIC -Wl,-soname,$@.1 $< -o $@.1.0
-+	ln -s $@.1.0 $@.1
-+	ln -s $@.1.0 $@
++	ln -sf $@.1.0 $@.1
++	ln -sf $@.1.0 $@
  
  lib64/libparrot_helper.$(CCTOOLS_DYNAMIC_SUFFIX): parrot_helper.c
  	mkdir -p lib64
 -	${CCTOOLS_CC} -m64 -shared -fPIC $< -o $@
 +	${CCTOOLS_CC} -m64 -shared -fPIC -Wl,-soname,$(notdir $@).1 $< -o $@.1.0
-+	ln -s $(notdir $@).1.0 $@.1
-+	ln -s $(notdir $@).1.0 $@
++	ln -sf $(notdir $@).1.0 $@.1
++	ln -sf $(notdir $@).1.0 $@
  
  lib/libparrot_helper.$(CCTOOLS_DYNAMIC_SUFFIX): parrot_helper.c
  	mkdir -p lib
 -	${CCTOOLS_CC} -m32 -shared -fPIC $< -o $@
 +	${CCTOOLS_CC} -m32 -shared -fPIC -Wl,-soname,$(notdir $@).1 $< -o $@.1.0
-+	ln -s $(notdir $@).1.0 $@.1
-+	ln -s $(notdir $@).1.0 $@
++	ln -sf $(notdir $@).1.0 $@.1
++	ln -sf $(notdir $@).1.0 $@
  
  tracer.table64.c: syscall_64.tbl
  	cat $< syscall_parrot.tbl | perl tracer.table.pl table 64 > $@
+@@ -81,9 +88,9 @@
+ install: all
+ 	mkdir -p $(CCTOOLS_INSTALL_DIR)/bin
+ 	chmod 755 $(SCRIPTS)
+-	cp $(PROGRAMS) $(SCRIPTS) $(CCTOOLS_INSTALL_DIR)/bin/
++	cp -a $(PROGRAMS) $(SCRIPTS) $(CCTOOLS_INSTALL_DIR)/bin/
+ 	mkdir -p $(CCTOOLS_INSTALL_DIR)/include/cctools
+-	cp $(HEADERS_PUBLIC) $(CCTOOLS_INSTALL_DIR)/include/cctools/
++	cp -a $(HEADERS_PUBLIC) $(CCTOOLS_INSTALL_DIR)/include/cctools/
+ 	mkdir -p $(CCTOOLS_INSTALL_DIR)/lib
+ ifeq ($(CCTOOLS_BUILD_LIB64PARROT_HELPER),yes)
+ 	mkdir -p $(CCTOOLS_INSTALL_DIR)/lib/lib64
+@@ -91,7 +98,7 @@
+ ifeq ($(CCTOOLS_BUILD_LIB32PARROT_HELPER),yes)
+ 	mkdir -p $(CCTOOLS_INSTALL_DIR)/lib/lib
+ endif
+-	for lib in $(LIBRARIES); do cp $$lib $(CCTOOLS_INSTALL_DIR)/lib/$$lib; done
++	for lib in $(LIBRARIES:%=%*); do cp -a $$lib $(CCTOOLS_INSTALL_DIR)/lib/$$lib; done
+ 
+ test: all
+ 
+--- cctools-release-7.0.22.ori/work_queue/src/bindings/perl/Makefile	2020-01-30 00:08:12.000000000 +0800
++++ cctools-release-7.0.22/work_queue/src/bindings/perl/Makefile	2020-02-16 17:56:39.145150581 +0800
+@@ -27,9 +27,9 @@
+ 
+ install: all
+ 	mkdir -p $(CCTOOLS_PERL_PATH)/Work_Queue
+-	cp $(LIBRARIES)       $(CCTOOLS_PERL_PATH)/
+-	cp Work_Queue.pm      $(CCTOOLS_PERL_PATH)
+-	cp Work_Queue/Task.pm $(CCTOOLS_PERL_PATH)/Work_Queue
+-	mkdir -p $(CCTOOLS_INSTALL_DIR)/doc
++	cp -a $(LIBRARIES)       $(CCTOOLS_PERL_PATH)/
++	cp -a Work_Queue.pm      $(CCTOOLS_PERL_PATH)
++	cp -a Work_Queue/Task.pm $(CCTOOLS_PERL_PATH)/Work_Queue
++	mkdir -p $(CCTOOLS_INSTALL_DIR)/doc/perl
+ 	chmod 755 work_queue_example.pl
+-	cp work_queue_example.pl $(CCTOOLS_INSTALL_DIR)/doc/
++	cp -a work_queue_example.pl $(CCTOOLS_INSTALL_DIR)/doc/perl/
+--- cctools-release-7.0.22.ori/work_queue/src/bindings/python/Makefile	2020-01-30 00:08:12.000000000 +0800
++++ cctools-release-7.0.22/work_queue/src/bindings/python/Makefile	2020-02-16 17:56:39.162150626 +0800
+@@ -33,6 +33,6 @@
+ install: all
+ 	mkdir -p $(CCTOOLS_PYTHON_PATH)
+ 	chmod 755 work_queue_example.py
+-	cp work_queue.py $(WQPYTHONSO) $(CCTOOLS_PYTHON_PATH)/
+-	mkdir -p $(CCTOOLS_INSTALL_DIR)/doc
+-	cp work_queue_example.py $(CCTOOLS_INSTALL_DIR)/doc/
++	cp -a work_queue.py $(WQPYTHONSO) $(CCTOOLS_PYTHON_PATH)/
++	mkdir -p $(CCTOOLS_INSTALL_DIR)/doc/python
++	cp -a work_queue_example.py $(CCTOOLS_INSTALL_DIR)/doc/python/
+--- cctools-release-7.0.22.ori/work_queue/src/bindings/python3/Makefile	2020-01-30 00:08:12.000000000 +0800
++++ cctools-release-7.0.22/work_queue/src/bindings/python3/Makefile	2020-02-16 17:56:39.154150605 +0800
+@@ -37,7 +37,7 @@
+ install: all
+ 	mkdir -p $(CCTOOLS_PYTHON3_PATH)
+ 	chmod 755 work_queue.py
+-	cp work_queue.py _work_queue.$(CCTOOLS_DYNAMIC_SUFFIX) $(CCTOOLS_PYTHON3_PATH)/
+-	mkdir -p $(CCTOOLS_INSTALL_DIR)/doc
+-	cp work_queue_example.py $(CCTOOLS_INSTALL_DIR)/doc/
++	cp -a work_queue.py _work_queue.$(CCTOOLS_DYNAMIC_SUFFIX) $(CCTOOLS_PYTHON3_PATH)/
++	mkdir -p $(CCTOOLS_INSTALL_DIR)/doc/python3
++	cp -a work_queue_example.py $(CCTOOLS_INSTALL_DIR)/doc/python3/
+ 

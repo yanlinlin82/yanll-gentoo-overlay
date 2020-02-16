@@ -11,7 +11,7 @@ S="${WORKDIR}/${PN}-release-${PV}"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64"
-IUSE=""
+IUSE="-doc static-libs"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
@@ -28,8 +28,17 @@ src_configure() {
 
 src_install() {
 	emake install
-	rm -rf "${D}"/usr/etc
-	rm -rf "${D}"/usr/doc
-	rm -rf "${D}"/usr/include
-	rm -rf "${D}"/usr/lib
+	dodir $(get_libdir)
+	mv "${D}"/usr/lib/{lib,lib64,*.so*} "${D}"/$(get_libdir)
+	mv "${D}"/usr/share/{${PN},${P}}
+	mv "${D}"/usr/etc "${D}"/usr/share/${P}/etc
+	if use doc; then
+		mv "${D}"/usr/doc "${D}"/usr/share/${P}/doc
+	else
+		rm -r "${D}"/usr/doc
+	fi
+	gunzip "${D}"/usr/share/man/man1/*.gz
+	if ! use static-libs; then
+		rm "${D}"/usr/lib/lib*.a
+	fi
 }
