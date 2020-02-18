@@ -1,0 +1,206 @@
+--- /src/oneShot/jksql/jksql.c	2020-02-18 02:10:08.000000000 +0800
++++ /src/oneShot/jksql/jksql.c	2020-02-19 02:10:47.287574669 +0800
+@@ -2,7 +2,7 @@
+ #include "common.h"
+ #include "dlist.h"
+ #include "hash.h"
+-#include <mysql.h>
++#include <mariadb/mysql.h>
+ 
+ static struct hash *bacAccessionHash;
+ 
+--- /src/utils/wigAsciiToBinary/test_data/testData.pl	2020-02-18 02:10:08.000000000 +0800
++++ /src/utils/wigAsciiToBinary/test_data/testData.pl	2020-02-19 02:10:47.287574669 +0800
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/perl -w
++#!/usr/bin/perl -w
+ #
+ #	Generate a sine curve over the number of data points given,
+ #		values output in the range [0:127]
+--- /src/utils/chromColors/paletteToHtml.pl	2020-02-18 02:10:08.000000000 +0800
++++ /src/utils/chromColors/paletteToHtml.pl	2020-02-19 02:10:47.287574669 +0800
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/perl -w
++#!/usr/bin/perl -w
+ #
+ #	Read a palette definition, create HTML to display those colors
+ #		in a pattern so they can all be seen next to each other
+--- /src/utils/chromColors/hToTxt.pl	2020-02-18 02:10:08.000000000 +0800
++++ /src/utils/chromColors/hToTxt.pl	2020-02-19 02:10:47.288574676 +0800
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/perl -w
++#!/usr/bin/perl -w
+ #
+ #	hToTxt - read the definition of the UCSC chromColors from
+ #		the source tree file chromColors.h and rearrange into
+--- /src/utils/chromColors/hexToPng.pl	2020-02-18 02:10:08.000000000 +0800
++++ /src/utils/chromColors/hexToPng.pl	2020-02-19 02:10:47.288574676 +0800
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/perl -w
++#!/usr/bin/perl -w
+ #
+ #	Read a palette definition, create ImageMagick "convert"
+ #		commands that will draw the color key png(/gif)
+--- /src/utils/qa/gc-stats.pl	2020-02-18 02:10:08.000000000 +0800
++++ /src/utils/qa/gc-stats.pl	2020-02-19 02:10:47.289574683 +0800
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/perl5
++#!/usr/bin/perl
+ 
+ # Program: gc-stats.pl
+ # Purpose: parses output of gene-check script into summary statistics
+--- /src/product/scripts/printEnv.pl	2020-02-18 02:10:08.000000000 +0800
++++ /src/product/scripts/printEnv.pl	2020-02-19 02:10:47.289574683 +0800
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/perl
++#!/usr/bin/perl
+ ## Before using this script in the cgi-bin/ directory, verify it functions
+ ##	OK from the command line:
+ ##	./printEnv.pl
+--- /src/hg/encode/mafCoord.pl	2020-02-18 02:10:08.000000000 +0800
++++ /src/hg/encode/mafCoord.pl	2020-02-19 02:10:47.289574683 +0800
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/perl
++#!/usr/bin/perl
+ 
+ # Strip empty line after comment (rejected by maf_project)
+ # and map ENCODE region coordinates to assembly coords
+--- /src/hg/encode/regionAgp/encodeRegionPackingList.pl	2020-02-18 02:10:08.000000000 +0800
++++ /src/hg/encode/regionAgp/encodeRegionPackingList.pl	2020-02-19 02:10:47.290574690 +0800
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/perl 
++#!/usr/bin/perl 
+ # create packing list for a set of organism AGP files
+ 
+ # $Header: /projects/compbio/cvsroot/kent/src/hg/encode/regionAgp/encodeRegionPackingList.pl,v 1.4 2004/10/06 17:07:17 kate Exp $
+--- /src/hg/encode/regionAgp/contigAccession.pl	2020-02-18 02:10:08.000000000 +0800
++++ /src/hg/encode/regionAgp/contigAccession.pl	2020-02-19 02:10:47.290574690 +0800
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/perl 
++#!/usr/bin/perl 
+ # Extract WGS contig to accession mapping from Entrez Nucleotide summaries
+ # Outputs to STDOUT, one line per mapping, in the format:
+ #       <contig>\t<accession>
+--- /src/hg/encode/encodeValidate/obsolete/tagAlignSanityCheck.pl	2020-02-18 02:10:08.000000000 +0800
++++ /src/hg/encode/encodeValidate/obsolete/tagAlignSanityCheck.pl	2020-02-19 02:10:47.290574690 +0800
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/perl
++#!/usr/bin/perl
+ 
+ # check random sequences from tagAlign files to make sure the corresponding fastq contains those sequences.
+ 
+--- /src/hg/lib/jksql.c	2020-02-18 02:10:08.000000000 +0800
++++ /src/hg/lib/jksql.c	2020-02-19 02:10:47.291574697 +0800
+@@ -13,7 +13,7 @@
+ #include "common.h"
+ #include "portable.h"
+ #include "errAbort.h"
+-#include <mysql.h>
++#include <mariadb/mysql.h>
+ #include "dlist.h"
+ #include "dystring.h"
+ #include "jksql.h"
+--- /src/hg/lib/sqlSanity.c	2020-02-18 02:10:08.000000000 +0800
++++ /src/hg/lib/sqlSanity.c	2020-02-19 02:10:47.291574697 +0800
+@@ -3,7 +3,7 @@
+ #include "common.h"
+ #include "portable.h"
+ #include "errAbort.h"
+-#include <mysql.h>
++#include <mariadb/mysql.h>
+ #include "dystring.h"
+ #include "jksql.h"
+ #include "sqlNum.h"
+--- /src/hg/makeDb/outside/hgKegg/kegg_geneIds.pl	2020-02-18 02:10:08.000000000 +0800
++++ /src/hg/makeDb/outside/hgKegg/kegg_geneIds.pl	2020-02-19 02:10:47.291574697 +0800
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/perl -w
++#!/usr/bin/perl -w
+ 
+ ## Author: Chad Chen
+ ## Last Modified: 10/1/2003
+--- /src/hg/protein/getKeggList2.pl	2020-02-18 02:10:08.000000000 +0800
++++ /src/hg/protein/getKeggList2.pl	2020-02-19 02:10:47.291574697 +0800
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/perl -w -I /usr/lib/perl5/site_perl/5.6.1
++#!/usr/bin/perl -w
+ 
+ ## Author: Chad Chen
+ ## Last Modified: 10/1/2003
+--- /src/hg/protein/checkTbls.pl	2020-02-18 02:10:08.000000000 +0800
++++ /src/hg/protein/checkTbls.pl	2020-02-19 02:10:47.291574697 +0800
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/perl -w
++#!/usr/bin/perl -w
+ 
+ use strict;
+ 
+--- /src/hg/protein/getKeggList.pl	2020-02-18 02:10:08.000000000 +0800
++++ /src/hg/protein/getKeggList.pl	2020-02-19 02:10:47.291574697 +0800
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/perl -w -I /usr/lib/perl5/site_perl/5.6.1
++#!/usr/bin/perl -w
+ 
+ ## Author: Chad Chen
+ ## Last Modified: 10/1/2003
+--- /src/hg/protein/sortKg.pl	2020-02-18 02:10:08.000000000 +0800
++++ /src/hg/protein/sortKg.pl	2020-02-19 02:10:47.291574697 +0800
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/perl -w
++#!/usr/bin/perl -w
+ #
+ #	sortKg.pl - sort knownGenes data by chrom then txStart
+ #
+--- /src/hg/cirm/cdw/cdwServeTagStorm/cdwServeTagStorm.c	2020-02-18 02:10:08.000000000 +0800
++++ /src/hg/cirm/cdw/cdwServeTagStorm/cdwServeTagStorm.c	2020-02-19 02:10:47.291574697 +0800
+@@ -1,5 +1,5 @@
+ /* cdwServeTagStorm - serve up a tagStorm file in .txt format. */
+-#include <mysql/mysql.h>
++#include <mariadb/mysql.h>
+ #include "common.h"
+ #include "linefile.h"
+ #include "hash.h"
+--- /src/hg/cirm/cdw/cdwGetMetadataAsFile/cdwGetMetadataAsFile.c	2020-02-18 02:10:08.000000000 +0800
++++ /src/hg/cirm/cdw/cdwGetMetadataAsFile/cdwGetMetadataAsFile.c	2020-02-19 02:10:47.291574697 +0800
+@@ -1,5 +1,5 @@
+ /* cdwGetMetadataAsFile - A CGI script that gets the metadata for a particular dataset as a file.. */
+-#include <mysql/mysql.h>
++#include <mariadb/mysql.h>
+ #include "common.h"
+ #include "linefile.h"
+ #include "hash.h"
+--- /src/hg/utils/genomeQuality/genomeQuality.pl	2020-02-18 02:10:08.000000000 +0800
++++ /src/hg/utils/genomeQuality/genomeQuality.pl	2020-02-19 02:10:47.292574704 +0800
+@@ -1,4 +1,4 @@
+-#! /usr/local/bin/perl
++#!/usr/bin/perl
+ 
+ use strict;
+ use warnings;
+--- /src/hg/visiGene/jackson/mysqlEscape/mysqlEscape.c	2020-02-18 02:10:08.000000000 +0800
++++ /src/hg/visiGene/jackson/mysqlEscape/mysqlEscape.c	2020-02-19 02:10:47.292574704 +0800
+@@ -15,7 +15,7 @@
+ #include "options.h"
+ #include "dystring.h"
+ 
+-#include <mysql.h>
++#include <mariadb/mysql.h>
+ 
+ #define BUFSIZE 32768
+ 
+--- /src/hg/splitFaIntoContigs/deLiftAgp.pl	2020-02-18 02:10:08.000000000 +0800
++++ /src/hg/splitFaIntoContigs/deLiftAgp.pl	2020-02-19 02:10:47.292574704 +0800
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/perl -w
++#!/usr/bin/perl -w
+ 
+ use strict;
+ 
+--- /src/hg/splitFaIntoContigs/verify.pl	2020-02-18 02:10:08.000000000 +0800
++++ /src/hg/splitFaIntoContigs/verify.pl	2020-02-19 02:10:47.292574704 +0800
+@@ -1,4 +1,4 @@
+-#!/usr/local/bin/perl -w
++#!/usr/bin/perl -w
+ use strict;
+ 
+ # This script takes the liftAll.lft file, which is in NT
