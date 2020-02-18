@@ -13,7 +13,7 @@ SLOT="0"
 KEYWORDS="amd64"
 IUSE=""
 
-DEPEND=""
+DEPEND="dev-cpp/tbb"
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
