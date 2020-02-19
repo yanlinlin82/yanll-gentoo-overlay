@@ -1,5 +1,9 @@
 # Linlin Yan's Gentoo Overlay
 
+## Motivation
+
+Gentoo ebuild provides an efficient and powerful way to manage software packages. Official portage tree could not include all software, especially in specific domains. Therefore, it is a good choice to build my own portage overlay, to incorporate software (bioinformatics, development, etc.) I am using, and also keep them update to the latest versions, as well as simple as possible.
+
 ## How to use
 
 1. Download the repo via git:
@@ -34,5 +38,6 @@
 * Update all Manifest files:
 
     ```sh
-    rm -fv */*/Manifest; for f in */*/*.ebuild; do (cd $(dirname $f); ebuild $(basename $f) manifest); done
+    rm -fv */*/Manifest
+    for f in */*/*.ebuild; do (cd $(dirname $f); ebuild $(basename $f) manifest); done
     ```
