@@ -31,6 +31,7 @@ src_compile() {
 	mkdir -pv ${S}/cgi-bin-${USER}
 	mkdir -pv ${S}/htdocs
 	emake -C src
+	emake -C src/utils scripts
 }
 
 src_install() {
