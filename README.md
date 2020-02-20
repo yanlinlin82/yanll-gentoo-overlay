@@ -6,13 +6,7 @@ Gentoo ebuild provides an efficient and powerful way to manage software packages
 
 ## How to use
 
-1. Download the repo via git:
-
-    ```sh
-    git clone https://github.com/yanlinlin82/yanll-gentoo-overlay
-    ```
-
-2. Add repo definition:
+1. Add repository definition:
 
     ```sh
     sudo vi /etc/portage/repos.conf/yanll.conf
@@ -23,8 +17,16 @@ Gentoo ebuild provides an efficient and powerful way to manage software packages
     ```
     [yanll]
     priority = 100
-    location = /path/to/the/downloaded/repo
+    location = /var/lib/yanll-gentoo-overlay/
+    sync-type = git
+    sync-uri = https://github.com/yanlinlin82/yanll-gentoo-overlay
     auto-sync = yes
+    ```
+
+2. Update portage:
+
+    ```sh
+    emerge --sync
     ```
 
 3. Install package, for example:
