@@ -5,10 +5,10 @@ EAPI=7
 
 DESCRIPTION="UCSC Genome Browser"
 HOMEPAGE="https://genome.ucsc.edu/"
-SRC_URI="https://github.com/ucscGenomeBrowser/kent/archive/v${PV}_base.tar.gz -> ${P}.tar.gz"
-S="${WORKDIR}/kent-${PV}_base"
+SRC_URI="https://github.com/ucscGenomeBrowser/${PN}/archive/v${PV}_base.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/${P}_base"
 
-LICENSE="UCSC-Genome-Browser"
+LICENSE="Kent-Informatics"
 SLOT="0"
 KEYWORDS="amd64"
 IUSE=""
