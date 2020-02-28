@@ -17,9 +17,11 @@ DEPEND="dev-util/dotnet-runtime"
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
+RESTRICT=strip
+
 src_install() {
 	dodir /opt/dotnet
-	cp -arv packs sdk templates ${D}/opt/dotnet
+	cp -ar packs sdk templates ${D}/opt/dotnet
 	dodir /opt/dotnet/shared
-	cp -arv shared/Microsoft.AspNetCore.App ${D}/opt/dotnet/shared
+	cp -ar shared/Microsoft.AspNetCore.App ${D}/opt/dotnet/shared
 }

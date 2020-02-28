@@ -17,13 +17,16 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
+RESTRICT=strip
+
 src_install() {
 	dodir /opt/dotnet
-	cp -arv * ${D}/opt/dotnet
+	cp -ar * ${D}/opt/dotnet
 
 	dodir /usr/bin
 	dosym /opt/dotnet/dotnet /usr/bin/dotnet # keep symbolic, make sure 'dotnet' could locate 'host/fxr/'
-	dolib.so /opt/dotnet/host/fxr/3.1.2/libhostfxr.so # copy file, to archive ebuild QA standard
+	dodir $(get_libdir)
+	cp -a /opt/dotnet/host/fxr/3.1.2/libhostfxr.so $(get_libdir)
 
 	dodir /etc/profile.d
 	echo 'export DOTNET_ROOT=/opt/dotnet' > ${D}/etc/profile.d/dotnet.sh
