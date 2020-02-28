@@ -18,7 +18,7 @@ BDEPEND=""
 
 src_install() {
 	dodir /etc/profile.d
-	cp -av gentoo-utils.sh ${D}/etc/profile.d
+	cp -av gentoo_utils.sh ${D}/etc/profile.d
 	dodir /usr/share/doc/${P}
 	cp -av README.md LICENSE ${D}/usr/share/doc/${P}
 }
