@@ -17,10 +17,6 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
-PATCHES=(
-	"${FILESDIR}/${P}-soname.patch"
-)
-
 src_configure() {
 	CFLAGS="${CFLAGS} -O0"           # disable gcc optimizing
 	./configure --prefix="${D}"/usr  # use './configure' rather than 'econf', since it is not a standard 'configure'
@@ -28,6 +24,7 @@ src_configure() {
 
 src_install() {
 	emake install
+	rmdir "${D}"/usr/man
 	dodir $(get_libdir)
 	mv "${D}"/usr/lib/{lib,lib64,*.so*} "${D}"/$(get_libdir)
 	mv "${D}"/usr/share/{${PN},${P}}
