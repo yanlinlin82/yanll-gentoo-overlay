@@ -5,7 +5,7 @@ EAPI=7
 
 DESCRIPTION="A developer platform for building all your app"
 HOMEPAGE="https://dotnet.microsoft.com/"
-SRC_URI="https://download.visualstudio.microsoft.com/download/pr/57e63f03-ebdf-4c22-96ff-2b85dc70cf7f/988576869e82a80f4a97ca5a733a5295/${P}-linux-x64.tar.gz"
+SRC_URI="https://download.visualstudio.microsoft.com/download/pr/daec2daf-b458-4ae1-9046-b8ba09b5fb49/733e2d73b41640d6e6bdf1cc6b9ef03b/${P}-linux-x64.tar.gz"
 S="${WORKDIR}"
 
 LICENSE="MIT"
