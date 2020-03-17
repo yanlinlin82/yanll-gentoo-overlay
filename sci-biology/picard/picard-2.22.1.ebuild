@@ -5,7 +5,7 @@ EAPI=7
 
 DESCRIPTION="Tools (in Java) for manipulating HTS data (SAM/BAM/CRAM/VCF)"
 HOMEPAGE="https://broadinstitute.github.io/picard/"
-SRC_URI="https://github.com/broadinstitute/picard/releases/download/2.21.9/picard.jar"
+SRC_URI="https://github.com/broadinstitute/picard/releases/download/2.21.9/picard.jar -> ${P}.jar"
 S="${WORKDIR}"
 
 LICENSE="MIT"
@@ -23,7 +23,7 @@ src_unpack() {
 
 src_install() {
 	dodir /opt/${P}
-	cp -aL ${DISTDIR}/picard.jar ${D}/opt/${P}/
+	cp -aL ${DISTDIR}/${P}.jar ${D}/opt/${P}/picard.jar
 
 	mkdir -p ${D}/usr/bin
 	cat >${D}/usr/bin/picard <<EOF
