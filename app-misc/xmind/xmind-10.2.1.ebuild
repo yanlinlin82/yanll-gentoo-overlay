@@ -7,7 +7,7 @@ inherit xdg-utils
 
 DESCRIPTION="A full-featured mind mapping and brainstorming tool"
 HOMEPAGE="https://www.xmind.net/"
-SRC_URI="https://www.xmind.cn/xmind/downloads/XMind-ZEN-for-Linux-amd-64bit-10.0.0-201911260056.deb -> ${P}.deb"
+SRC_URI="https://www.xmind.net/xmind/downloads/XMind-2020-for-Linux-amd-64bit-10.2.1-202008051959.deb -> ${P}.deb"
 S="${WORKDIR}"
 
 LICENSE="xmind"
