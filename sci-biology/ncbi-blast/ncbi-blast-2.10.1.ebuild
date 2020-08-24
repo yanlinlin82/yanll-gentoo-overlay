@@ -5,8 +5,8 @@ EAPI=7
 
 DESCRIPTION="Basic Local Alignment Search Tool"
 HOMEPAGE="https://blast.ncbi.nlm.nih.gov/"
-SRC_URI="ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/${P}+-x64-linux.tar.gz -> ${P}.tar.gz"
-S="${WORKDIR}/ncbi-blast-2.10.0+"
+SRC_URI="ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/${PV}/${P}+-x64-linux.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/ncbi-blast-${PV}+"
 
 LICENSE="public-domain"
 SLOT="0"
