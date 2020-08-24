@@ -5,7 +5,7 @@ EAPI=7
 
 DESCRIPTION="Visual Studio Code"
 HOMEPAGE="https://code.visualstudio.com/"
-SRC_URI="https://az764295.vo.msecnd.net/stable/78a4c91400152c0f27ba4d363eb56d2835f9903a/code-stable-1583783449.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://az764295.vo.msecnd.net/stable/3dd905126b34dcd4de81fa624eb3a8cbe7485f13/code-stable-1597857980.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}/VSCode-linux-x64"
 
 LICENSE="MIT"
