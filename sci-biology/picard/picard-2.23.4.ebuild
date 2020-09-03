@@ -5,7 +5,7 @@ EAPI=7
 
 DESCRIPTION="Tools (in Java) for manipulating HTS data (SAM/BAM/CRAM/VCF)"
 HOMEPAGE="https://broadinstitute.github.io/picard/"
-SRC_URI="https://github.com/broadinstitute/picard/releases/download/2.21.9/picard.jar -> ${P}.jar"
+SRC_URI="https://github.com/broadinstitute/picard/releases/download/${PV}/picard.jar -> ${P}.jar"
 S="${WORKDIR}"
 
 LICENSE="MIT"
