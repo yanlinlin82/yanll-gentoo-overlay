@@ -19,7 +19,6 @@ BDEPEND=""
 
 src_install() {
 	dobin bin/gh
-	dodoc README.md
 	dodoc LICENSE
-	dodoc CHANGELOG.md
+	doman share/man/man1/*.1
 }
