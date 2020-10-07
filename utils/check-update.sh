@@ -31,3 +31,11 @@ if [ "$(ls ${PACKAGE}/ | grep ebuild | cut -d- -f2 | sed 's/\.ebuild$//')" != "$
 	mv -v ${PACKAGE}/picard-*.ebuild ${PACKAGE}/picard-${APP_VER}.ebuild
 	(cd ${PACKAGE} && ebuild *.ebuild digest)
 fi
+
+PACKAGE=sci-biology/bowtie
+APP_VER=$(curl -s https://api.github.com/repos/BenLangmead/bowtie2/releases/latest | grep tag_name | cut -d: -f2 | cut -d\" -f2 | cut -c2-)
+if [ "$(ls ${PACKAGE}/ | grep ebuild | cut -d- -f2 | sed 's/\.ebuild$//')" != "${APP_VER}" ]; then
+	echo "Upgrade '${PACKAGE}'"
+	mv -v ${PACKAGE}/bowtie-*.ebuild ${PACKAGE}/bowtie-${APP_VER}.ebuild
+	(cd ${PACKAGE} && ebuild *.ebuild digest)
+fi
